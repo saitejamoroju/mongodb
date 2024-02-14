@@ -1,0 +1,169 @@
+use saiteja
+switched to db saiteja
+saiteja> show collections
+students
+saiteja> db.students.find()
+[
+  {
+    _id: ObjectId('65cd19b7d40b740bafc7372b'),
+    name: 'sai',
+    favColor: 'black'
+  }
+]
+saiteja> db.personal.insertOne({gender:"male",interest:"na"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65cd1a3bbb79f74d8799dc1c')
+}
+saiteja> show collections
+personal
+students
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  }
+]
+saiteja> db.personal.insertMany([{name:"sai"},{name:"teja"},{name:"saitej"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65cd1a99bb79f74d8799dc1d'),
+    '1': ObjectId('65cd1a99bb79f74d8799dc1e'),
+    '2': ObjectId('65cd1a99bb79f74d8799dc1f')
+  }
+}
+saiteja> show collections
+personal
+students
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saitej' }
+]
+saiteja> db.personal.find({name:"teja"})
+[ { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' } ]
+saiteja> db.personal.insertOne({name:"moroju"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65cd1b0fbb79f74d8799dc20')
+}
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saitej' },
+  { _id: ObjectId('65cd1b0fbb79f74d8799dc20'), name: 'moroju' }
+]
+saiteja> db.personal.find({name:"sai"})
+[ { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' } ]
+saiteja> db.personal.find({name:"sai"}).limit
+[Function: limit] {
+  returnType: 'Cursor',
+  serverVersions: [ '0.0.0', '999.999.999' ],
+  apiVersions: [ 0, Infinity ],
+  topologies: [ 'ReplSet', 'Sharded', 'LoadBalanced', 'Standalone' ],
+  returnsPromise: false,
+  deprecated: false,
+  platforms: [ 'Compass', 'Browser', 'CLI' ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+saiteja> db.personal.find({name:"sai"}).limit(1)
+[ { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' } ]
+saiteja> db.personal.findOne()
+{
+  _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+  gender: 'male',
+  interest: 'na'
+}
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saitej' },
+  { _id: ObjectId('65cd1b0fbb79f74d8799dc20'), name: 'moroju' }
+]
+saiteja> db.personal.updateOne({name:"saitej"},{$set:{name:"saiteja"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saiteja' },
+  { _id: ObjectId('65cd1b0fbb79f74d8799dc20'), name: 'moroju' }
+]
+saiteja> db.personal.deleteOne({name:"moroju"})
+{ acknowledged: true, deletedCount: 1 }
+saiteja> db.personal.find()
+[
+  {
+    _id: ObjectId('65cd1a3bbb79f74d8799dc1c'),
+    gender: 'male',
+    interest: 'na'
+  },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saiteja' }
+]
+saiteja> db.personal.deleteOne({})
+{ acknowledged: true, deletedCount: 1 }
+saiteja> db.personal.find()
+[
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1d'), name: 'sai' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1e'), name: 'teja' },
+  { _id: ObjectId('65cd1a99bb79f74d8799dc1f'), name: 'saiteja' }
+]
+saiteja> db.personal.deleteMany({})
+{ acknowledged: true, deletedCount: 3 }
+saiteja> db.personal.find()
+
+saiteja> show collections
+personal
+students
+saiteja> db.students.find()
+[
+  {
+    _id: ObjectId('65cd19b7d40b740bafc7372b'),
+    name: 'sai',
+    favColor: 'black'
+  }
+]
+saiteja> db.students.findOne()
+{
+  _id: ObjectId('65cd19b7d40b740bafc7372b'),
+  name: 'sai',
+  favColor: 'black'
+}
+saiteja>
